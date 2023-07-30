@@ -1,0 +1,24 @@
+name: CI on Main Merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Checkout private repo
+    uses: actions/checkout@v2
+    with:
+       repository: luizgribeiro/toggle_envs/dev
+       token: ${{ secrets.GH_PAT }}
+
+    - name: Show ff file
+    run: cat toggle_envs/flags.json
+

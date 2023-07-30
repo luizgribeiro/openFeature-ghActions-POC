@@ -1,4 +1,4 @@
-name: CI on Main Merge
+name: CI on Main Merge (get toggle file)
 
 on:
   push:

@@ -17,7 +17,8 @@ jobs:
       - name: Checkout private repo
         uses: actions/checkout@v2
         with:
-          repository: luizgribeiro/toggle_envs/dev
+          repository: luizgribeiro/toggle_envs
+          branch: dev
           token: ${{ secrets.GH_PAT }}
 
       - name: Show ff file

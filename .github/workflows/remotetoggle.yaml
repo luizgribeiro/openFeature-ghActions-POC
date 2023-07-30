@@ -21,6 +21,9 @@ jobs:
           branch: dev
           token: ${{ secrets.GH_PAT }}
 
+      - name: show files
+        run: ls -laR
+
       - name: Show ff file
         run: cat toggle_envs/flags.json
 #

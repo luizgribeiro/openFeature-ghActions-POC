@@ -11,21 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - uses: actions/checkout@v2
       - name: Checkout code
-        uses: actions/checkout@v2
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git fetch               
+          git checkout main       
+          git checkout homolog flags.json
 
-      - name: Checkout private repo
-        uses: actions/checkout@v2
-        with:
-          repository: luizgribeiro/toggle_envs
-          branch: dev
-          token: ${{ secrets.GH_PAT }}
+
+      # - name: Checkout private repo
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: luizgribeiro/toggle_envs
+      #     branch: dev
+      #     token
 
       - name: show files
-        run: ls -laR
+        run: ls -la
 
       - name: Show ff file
-        run: cat toggle_envs/flags.json
+        run: cat flags.json
 #
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"

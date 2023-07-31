@@ -13,12 +13,14 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Checkout files
-        uses: Bhacaz/checkout-files@v2
         with:
-          files: flags.json
-          branch: homolog
+          submodules: recursive
+
+      # - name: Checkout files
+      #   uses: Bhacaz/checkout-files@v2
+      #   with:
+      #     files: flags.json
+      #     branch: homolog
 
 
       # - name: Checkout private repo

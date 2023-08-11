@@ -18,6 +18,7 @@ jobs:
         with:
           ssh-key: ${{ secrets.FF_DEPLOY_KEY }}
           repository: luizgribeiro/toggle_envs
+          path: ./feature_flags
 
 
       # - name: Checkout files
@@ -35,11 +36,8 @@ jobs:
       #     token
 
       - name: show files
-        run: ls -la
+        run: ls -laR
 
-      - name: Show ff file
-        run: cat flags.json
-#
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       # - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."

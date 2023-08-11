@@ -16,6 +16,12 @@ jobs:
         with:
           submodules: recursive
 
+      - uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.FF_DEPLOY_KEY }}
+          repository: organization_name/repo_name
+
+
       # - name: Checkout files
       #   uses: Bhacaz/checkout-files@v2
       #   with:

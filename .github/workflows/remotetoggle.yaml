@@ -42,6 +42,9 @@ jobs:
           repository: luizgribeiro/toggle_envs
           path: ./feature_flags
 
+      - name: Configure flags file
+        run: export TARGET_ENV=${{ needs.set-environment.outputs.environment }} cat ./feature_flags/flags-template.yaml | envsubst > ./flags.yaml
+
       - name: show files
         run: ls -laR
 

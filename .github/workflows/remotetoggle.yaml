@@ -45,12 +45,6 @@ jobs:
       - name: Configure flags file
         run: cat ./feature_flags/flags-template.yaml | TARGET_ENV=${{ needs.set-environment.outputs.environment }} envsubst > ./flags.yaml
 
-      - name: show flags
-        run: cat ./flags.yaml
-
-      - name: show files
-        run: ls -laR
-
       - name: Build
         run: docker build ./ -t openfeaturepoc
 

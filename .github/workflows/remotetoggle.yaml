@@ -1,68 +1,52 @@
-name: CI on Main Merge (get toggle file)
+name: Github Actions + Flagd POC
 
 on:
   push:
     branches:
       - main
+    tags:
+      - '*.*.**'
 
-
+  
 jobs:
-  Explore-GitHub-Actions:
+  set-environment:
+    outputs:
+      environment: ${{ steps.setenv.outputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: setenv
+        run: |-
+          if [ ${{ github.ref }} == 'refs/heads/main' ]; then 
+            echo "environment=dev" >> $GITHUB_OUTPUT
+          else 
+            if [ ${{ startsWith(github.event.ref, 'refs/tags/') && contains(github.event.ref,'-rc') }}  == "true" ]; then
+              echo "environment=staging" >> $GITHUB_OUTPUT
+            else
+              echo "environment=prod" >> $GITHUB_OUTPUT
+            fi
+          fi
+      - name: show configured environment
+        run: echo ${{steps.setenv.outputs.environment}}
+
+  Run-FF-from-deployment-target:
     runs-on: ubuntu-latest
     steps:
 
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Checkout Feature Toggle file
       - uses: actions/checkout@v2
         with:
           ssh-key: ${{ secrets.FF_DEPLOY_KEY }}
           repository: luizgribeiro/toggle_envs
           path: ./feature_flags
 
-
-      # - name: Checkout files
-      #   uses: Bhacaz/checkout-files@v2
-      #   with:
-      #     files: flags.json
-      #     branch: homolog
-
-
-      # - name: Checkout private repo
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: luizgribeiro/toggle_envs
-      #     branch: dev
-      #     token
-
       - name: show files
         run: ls -laR
 
-      # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      # - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      # - name: Check out repository code
-      #   uses: actions/checkout@v3
-      # - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      # - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      # - name: List files in the repository
-      #   run: |
-      #     ls ${{ github.workspace }}
-      # - run: echo "🍏 This job's status is ${{ job.status }}."
-# jobs:
-#   Get-ff-values-another-repo:
-#     runs-on: ubuntu-latest
-#
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-#
-#     - name: Checkout private repo
-#     uses: actions/checkout@v2
-#     with:
-#        repository: luizgribeiro/toggle_envs/dev
-#        token: ${{ secrets.GH_PAT }}
-#
-#     - name: Show ff file
-#     run: cat toggle_envs/flags.json
-#
+      - name: Build
+        run: docker build ./ -t openfeaturepoc
+
+      - name: Run
+        run: docker run --rm openfeaturepoc

@@ -43,7 +43,7 @@ jobs:
           path: ./feature_flags
 
       - name: Configure flags file
-        run: export TARGET_ENV=${{ needs.set-environment.outputs.environment }} cat ./feature_flags/flags-template.yaml | envsubst > ./flags.yaml
+        run: cat ./feature_flags/flags-template.yaml | TARGET_ENV=${{ needs.set-environment.outputs.environment }} envsubst > ./flags.yaml
 
       - name: show flags
         run: cat ./flags.yaml

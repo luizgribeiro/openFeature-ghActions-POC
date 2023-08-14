@@ -14,3 +14,17 @@ This repo was created as a prof of concept for scenario in which pipelines are r
 3. The flagd configuration file was made so that the available keys matched `TARGET_ENVIRONMENTS` values
 4. The `defaultVariant` of the feature flag was set using envsubst with the current value os `TARGET_ENVIRONMENT`
 5. A container image (deployable artefact) was build with flagd + configuration file and application: the application comunicates with flagd through unix sockets in order to evaluate the requested flag
+
+## Results
+
+### `TARGET_ENVIRONMENT`: dev
+
+![Result with target environment as development](./target_dev.png)
+
+### `TARGET_ENVIRONMENT`: staging
+
+![Result with target environment as staging](./target_staging.png)
+
+### `TARGET_ENVIRONMENT`: production
+
+![Result with target environment as production](./target_prod.png)

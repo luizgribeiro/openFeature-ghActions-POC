@@ -7,9 +7,9 @@ This repo was created as a prof of concept for scenario in which pipelines are r
 ## How does it work?
 
 1. The the following `TARGET_ENVIRONMENTS` are considered with the corresponding activation rules on Github Actions workflow:
-    a. dev: push to main
-    b. staging: any tag with the structure *.*.*-rc.**
-    c. production: any tag with the structure *.*.*
+    1. dev: push to main
+    2. staging: any tag with the structure *.*.*-rc.**
+    3. production: any tag with the structure *.*.*
 2. Another repo contais the `flagd` configuration file: It was done this way because multiple repos can read from the same place, thus providing consistent behaviour. In order to copy this repo in the pipeline deploy keys were used. The public key was registred in [this other repo](https://github.com/luizgribeiro/flagd-template-ghActions-POC) and the private key was set as a secret at the current repo.
 3. The flagd configuration file was made so that the available keys matched `TARGET_ENVIRONMENTS` values
 4. The `defaultVariant` of the feature flag was set using envsubst with the current value os `TARGET_ENVIRONMENT`

@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ssh-key: ${{ secrets.FF_DEPLOY_KEY }}
-          repository: luizgribeiro/toggle_envs
+          repository: luizgribeiro/flagd-template-ghActions-POC
           path: ./feature_flags
 
       - name: Configure flags file

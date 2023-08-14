@@ -19,12 +19,12 @@ This repo was created as a prof of concept for scenario in which pipelines are r
 
 ### `TARGET_ENVIRONMENT`: dev
 
-![Result with target environment as development](./target_dev.png)
+![Result with target environment as development](./images/target_dev.png)
 
 ### `TARGET_ENVIRONMENT`: staging
 
-![Result with target environment as staging](./target_staging.png)
+![Result with target environment as staging](./images/target_staging.png)
 
 ### `TARGET_ENVIRONMENT`: production
 
-![Result with target environment as production](./target_prod.png)
+![Result with target environment as production](./images/target_prod.png)
